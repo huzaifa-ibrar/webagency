@@ -18,8 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" style={{ scrollBehavior: 'smooth' }}>
+      <body className={`${inter.className} text-[95%]`}>
         <main className="min-h-screen bg-netspire-black">
           {children}
         </main>

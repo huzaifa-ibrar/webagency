@@ -14,9 +14,11 @@ const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   
+  const calendlyUrl = "https://calendly.com/netspirestudios/30min?month=2025-05";
+  
   const calendlyCode = `
     <!-- Calendly inline widget begin -->
-    <div class="calendly-inline-widget" data-url="https://calendly.com/netspirestudios?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=000000&text_color=ffffff&primary_color=fc256f" style="min-width:320px;height:700px;"></div>
+    <div class="calendly-inline-widget" data-url="${calendlyUrl}?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=000000&text_color=ffffff&primary_color=fc256f" style="min-width:320px;height:700px;"></div>
     <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     <!-- Calendly inline widget end -->
   `;
@@ -90,7 +92,7 @@ const ContactSection = () => {
             viewport={{ once: true }}
             className="text-xl text-gray-300 max-w-3xl mx-auto mb-12"
           >
-            Ready to start your project? Contact us today and let's create something amazing together.
+            Ready to start your project? Contact us today or schedule a consultation directly.
           </motion.p>
         </div>
         
@@ -142,6 +144,19 @@ const ContactSection = () => {
                   <a href="tel:+16475724056" className="text-gray-300 hover:text-netspire-pink transition-colors">(+1) 647-572-4056</a>
                 </div>
               </div>
+            </div>
+            
+            <div className="mt-12">
+              <h4 className="text-lg font-semibold mb-4">Book a Consultation</h4>
+              <p className="text-gray-300 mb-4">Schedule a free consultation to discuss your project requirements.</p>
+              <a 
+                href={calendlyUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="inline-block px-6 py-3 bg-netspire-pink bg-opacity-20 text-netspire-pink hover:bg-opacity-30 rounded-lg font-medium transition-all transform hover:scale-105"
+              >
+                Get Started
+              </a>
             </div>
             
             <div className="mt-12">
