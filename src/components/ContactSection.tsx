@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import Script from 'next/script';
 
 const ContactSection = () => {
   const [formState, setFormState] = useState({
@@ -87,7 +88,7 @@ const ContactSection = () => {
           </motion.p>
         </div>
         
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Contact Information */}
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
@@ -108,7 +109,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold mb-1">Our Location</h4>
-                  <p className="text-gray-300">123 Digital Avenue, Tech City</p>
+                  <p className="text-gray-300">Toronto, Canada</p>
                 </div>
               </div>
               
@@ -120,7 +121,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold mb-1">Email Us</h4>
-                  <a href="mailto:info@netspire.com" className="text-gray-300 hover:text-netspire-pink transition-colors">info@netspire.com</a>
+                  <a href="mailto:netspirestudios@gmail.com" className="text-gray-300 hover:text-netspire-pink transition-colors">netspirestudios@gmail.com</a>
                 </div>
               </div>
               
@@ -132,7 +133,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold mb-1">Call Us</h4>
-                  <a href="tel:+15551234567" className="text-gray-300 hover:text-netspire-pink transition-colors">+1 (555) 123-4567</a>
+                  <a href="tel:+16475724056" className="text-gray-300 hover:text-netspire-pink transition-colors">(+1) 647-572-4056</a>
                 </div>
               </div>
             </div>
@@ -174,148 +175,16 @@ const ContactSection = () => {
             </div>
           </motion.div>
           
-          {/* Contact Form */}
+          {/* Calendly Widget */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="bg-netspire-gray bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-2xl p-8 border border-netspire-gray border-opacity-20"
+            className="bg-netspire-gray bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-2xl p-4 border border-netspire-gray border-opacity-20 overflow-hidden"
           >
-            {isSubmitted ? (
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="h-full flex flex-col items-center justify-center text-center py-10"
-              >
-                <div className="w-16 h-16 bg-green-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
-                <p className="text-gray-300 mb-6">We'll get back to you as soon as possible.</p>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsSubmitted(false)}
-                  className="px-6 py-2 bg-netspire-pink bg-opacity-20 text-netspire-pink rounded-full font-medium"
-                >
-                  Send Another Message
-                </motion.button>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <motion.div 
-                  custom={1}
-                  variants={formFieldVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="grid grid-cols-1 gap-6 sm:grid-cols-2"
-                >
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">Your Name</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formState.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full bg-netspire-gray bg-opacity-20 border border-netspire-gray border-opacity-20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-netspire-pink focus:ring-opacity-50 transition-all"
-                      placeholder="John Doe"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">Your Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formState.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full bg-netspire-gray bg-opacity-20 border border-netspire-gray border-opacity-20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-netspire-pink focus:ring-opacity-50 transition-all"
-                      placeholder="john@example.com"
-                    />
-                  </div>
-                </motion.div>
-                
-                <motion.div
-                  custom={2}
-                  variants={formFieldVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                >
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-1">Subject</label>
-                  <select
-                    id="subject"
-                    name="subject"
-                    value={formState.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full bg-netspire-gray bg-opacity-20 border border-netspire-gray border-opacity-20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-netspire-pink focus:ring-opacity-50 transition-all"
-                  >
-                    <option value="" disabled className="bg-netspire-gray">Select a subject</option>
-                    <option value="Web Development" className="bg-netspire-gray">Web Development</option>
-                    <option value="Mobile App" className="bg-netspire-gray">Mobile App</option>
-                    <option value="UI/UX Design" className="bg-netspire-gray">UI/UX Design</option>
-                    <option value="Cloud Solutions" className="bg-netspire-gray">Cloud Solutions</option>
-                    <option value="Other" className="bg-netspire-gray">Other</option>
-                  </select>
-                </motion.div>
-                
-                <motion.div
-                  custom={3}
-                  variants={formFieldVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                >
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">Message</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formState.message}
-                    onChange={handleChange}
-                    required
-                    rows={6}
-                    className="w-full bg-netspire-gray bg-opacity-20 border border-netspire-gray border-opacity-20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-netspire-pink focus:ring-opacity-50 transition-all"
-                    placeholder="Tell us about your project..."
-                  ></textarea>
-                </motion.div>
-                
-                <motion.div
-                  custom={4}
-                  variants={formFieldVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="flex justify-end"
-                >
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={`btn-gradient text-white px-8 py-3 rounded-full font-medium text-lg shadow-lg relative overflow-hidden ${isSubmitting ? 'opacity-80' : ''}`}
-                  >
-                    {isSubmitting ? (
-                      <div className="flex items-center">
-                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Sending...
-                      </div>
-                    ) : 'Send Message'}
-                  </motion.button>
-                </motion.div>
-              </form>
-            )}
+            <div className="calendly-inline-widget" data-url="https://calendly.com/netspirestudios?background_color=000000&text_color=ffffff&primary_color=fc256f" style={{ minWidth: "320px", height: "700px" }}></div>
+            <Script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async />
           </motion.div>
         </div>
       </div>
