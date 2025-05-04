@@ -1,23 +1,23 @@
-import Header from "../components/Header";
-import Hero from "../components/Hero";
-import Services from "../components/Services";
-import Process from "../components/Process";
-import Testimonials from "../components/Testimonials";
-import Contact from "../components/Contact";
-import Footer from "../components/Footer";
-import BackToTop from "../components/BackToTop";
+import Navbar from '@/components/Navbar';
+import HeroSection from '@/components/HeroSection';
+import AboutSection from '@/components/AboutSection';
+import ServicesSection from '@/components/ServicesSection';
+import PortfolioSection from '@/components/PortfolioSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
+import CtaSection from '@/components/CtaSection';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <Header />
-      <Hero />
-      <Services />
-      <Process />
-      <Testimonials />
-      <Contact />
+    <>
+      <Navbar />
+      <HeroSection />
+      <AboutSection />
+      <ServicesSection />
+      <PortfolioSection />
+      <TestimonialsSection />
+      <CtaSection />
       <Footer />
-      <BackToTop />
-    </main>
+    </>
   );
-}
+} 

@@ -1,36 +1,29 @@
-import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
-import "./globals.css";
+import '@/styles/globals.css';
+import { Inter } from 'next/font/google';
+import type { Metadata } from 'next';
 
-const inter = Inter({ 
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const poppins = Poppins({ 
-  weight: ["400", "500", "600", "700", "800"],
-  subsets: ["latin"],
-  variable: "--font-poppins",
-  display: "swap",
-});
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Netspire Studios | Creative Web Agency",
-  description: "Innovative digital solutions that transform your online presence. We craft beautiful, functional websites that deliver results.",
+  title: 'Netspire | Modern Web Agency',
+  description: 'Crafting innovative digital experiences that transform brands',
+  icons: {
+    icon: [],
+  }
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${poppins.variable} font-sans`}>
-        {children}
+      <body className={inter.className}>
+        <main className="min-h-screen bg-netspire-black">
+          {children}
+        </main>
       </body>
     </html>
   );
-}
+} 

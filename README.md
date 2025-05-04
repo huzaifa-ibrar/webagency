@@ -1,72 +1,75 @@
-# Netspire Studios - Modern Web Agency
+# Netspire Web Agency Landing Page
 
-A stunning, modern web agency landing page for Netspire Studios built with Next.js, Tailwind CSS, Framer Motion, and GSAP.
-
-## Features
-
-- Responsive design for all devices
-- Modern UI with glassmorphism, glowing effects, and parallax motion
-- Smooth animations and transitions
-- Interactive components
-- Contact form
-- Testimonials carousel
-- Timeline process section
+A modern, animated landing page for Netspire Web Agency featuring a sleek black and pinkish-red color scheme with smooth animations.
 
 ## Technologies Used
 
-- [Next.js](https://nextjs.org/)
-- [React](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [GSAP](https://greensock.com/gsap/)
+- Next.js 13
+- React 18
+- TypeScript
+- Tailwind CSS
+- Framer Motion (for animations)
+- React Intersection Observer
 
 ## Getting Started
 
-### Prerequisites
+First, install the dependencies:
 
-- Node.js 16.8.0 or later
-- npm or yarn
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
 
-### Installation
+Then, run the development server:
 
-1. Clone the repository
-   ```bash
-   git clone https://github.com/huzaifa-ibrar/webagency.git
-   cd webagency
-   ```
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+```
 
-2. Install dependencies
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-3. Run the development server
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
+## Features
 
-4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Deployment
-
-This project is built to be easily deployed to Vercel. Simply connect your GitHub repository to Vercel for automatic deployments.
+- Responsive design that works on all screen sizes
+- Modern animations powered by Framer Motion
+- Smooth scrolling and intersection animations
+- Dark theme with black and pinkish-red color scheme
+- Optimized for performance
 
 ## Project Structure
 
-- `src/app`: Next.js app router pages and layouts
-- `src/components`: Reusable UI components
-- `public`: Static assets like images and fonts
-- `styles`: Global styles and Tailwind configuration
+- `/src/app` - Next.js app directory structure
+- `/src/components` - React components
+- `/src/styles` - CSS and styling related files
+- `/public` - Static assets
 
-## Contributing
+## Customization
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+You can customize the colors by modifying the `tailwind.config.js` file. The main colors used are:
 
-## License
+- `netspire-black`: #000000
+- `netspire-pink`: #FF1053
+- `netspire-pink-light`: #FF4778
+- `netspire-gray`: #333333
 
-This project is licensed under the MIT License.
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
