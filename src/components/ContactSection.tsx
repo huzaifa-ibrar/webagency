@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import Script from 'next/script';
 
 const ContactSection = () => {
   const [formState, setFormState] = useState({
@@ -14,6 +13,20 @@ const ContactSection = () => {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const calendlyRef = useRef<HTMLDivElement>(null);
+  
+  // Load Calendly script
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    document.body.appendChild(script);
+    
+    return () => {
+      // Clean up the script when component unmounts
+      document.body.removeChild(script);
+    };
+  }, []);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -183,8 +196,7 @@ const ContactSection = () => {
             viewport={{ once: true }}
             className="bg-netspire-gray bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-2xl p-4 border border-netspire-gray border-opacity-20 overflow-hidden"
           >
-            <div className="calendly-inline-widget" data-url="https://calendly.com/netspirestudios?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=000000&text_color=ffffff&primary_color=fc256f" style={{ minWidth: "320px", height: "700px" }}></div>
-            <Script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async />
+            <div ref={calendlyRef} className="calendly-inline-widget" data-url="https://calendly.com/netspirestudios?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=000000&text_color=ffffff&primary_color=fc256f" style={{ minWidth: "320px", height: "700px" }}></div>
           </motion.div>
         </div>
       </div>
