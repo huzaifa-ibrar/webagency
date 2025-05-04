@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-secondary/90 backdrop-blur-md py-3" : "bg-transparent py-5"
+        isScrolled ? "bg-secondary/90 backdrop-blur-md py-2" : "bg-transparent py-3 md:py-5"
       }`}
     >
       <div className="container mx-auto px-4 md:px-6">
@@ -30,14 +30,14 @@ const Header = () => {
             transition={{ duration: 0.5 }}
             className="flex items-center"
           >
-            <Link href="/" className="text-2xl md:text-3xl font-heading font-bold">
+            <Link href="/" className="text-xl md:text-2xl lg:text-3xl font-heading font-bold">
               <span className="text-primary glow-text">Netspire</span>
               <span className="text-white"> Studios</span>
             </Link>
           </motion.div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex space-x-4 lg:space-x-8">
             {["Services", "Works", "Process", "Testimonials", "Contact"].map((item, i) => (
               <motion.div
                 key={item}
@@ -47,7 +47,7 @@ const Header = () => {
               >
                 <Link 
                   href={`#${item.toLowerCase()}`}
-                  className="text-white hover:text-primary transition-colors duration-300"
+                  className="text-white hover:text-primary transition-colors duration-300 text-sm lg:text-base"
                 >
                   {item}
                 </Link>
@@ -57,7 +57,7 @@ const Header = () => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.6 }}
-              className="bg-primary hover:bg-primary-dark text-white px-5 py-2 rounded-lg transition-colors duration-300 glow-primary"
+              className="bg-primary hover:bg-primary-dark text-white px-4 py-1.5 lg:px-5 lg:py-2 rounded-lg transition-colors duration-300 glow-primary text-sm lg:text-base"
             >
               Get Started
             </motion.button>
@@ -83,30 +83,33 @@ const Header = () => {
         </div>
 
         {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden mt-4 rounded-lg bg-secondary/95 backdrop-blur-md"
-          >
-            <nav className="flex flex-col space-y-4 p-4">
-              {["Services", "Works", "Process", "Testimonials", "Contact"].map((item) => (
-                <Link 
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="text-white hover:text-primary transition-colors duration-300"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item}
-                </Link>
-              ))}
-              <button className="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg transition-colors duration-300 glow-primary mt-2">
-                Get Started
-              </button>
-            </nav>
-          </motion.div>
-        )}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden mt-4 rounded-lg bg-secondary/95 backdrop-blur-md"
+            >
+              <nav className="flex flex-col space-y-3 p-4">
+                {["Services", "Works", "Process", "Testimonials", "Contact"].map((item) => (
+                  <Link 
+                    key={item}
+                    href={`#${item.toLowerCase()}`}
+                    className="text-white hover:text-primary transition-colors duration-300"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item}
+                  </Link>
+                ))}
+                <button className="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg transition-colors duration-300 glow-primary mt-2 text-sm">
+                  Get Started
+                </button>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );
