@@ -183,7 +183,7 @@ const ContactSection = () => {
             viewport={{ once: true }}
             className="bg-netspire-gray bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-2xl p-4 border border-netspire-gray border-opacity-20 overflow-hidden"
           >
-            <div className="calendly-inline-widget" data-url="https://calendly.com/netspirestudios?background_color=000000&text_color=ffffff&primary_color=fc256f" style={{ minWidth: "320px", height: "700px" }}></div>
+            <div className="calendly-inline-widget" data-url="https://calendly.com/netspirestudios?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=000000&text_color=ffffff&primary_color=fc256f" style={{ minWidth: "320px", height: "700px" }}></div>
             <Script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async />
           </motion.div>
         </div>
