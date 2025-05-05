@@ -6,8 +6,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Handle mounting state to avoid window references during SSR
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
+    if (!mounted) return;
+
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setScrolled(true);
@@ -18,25 +26,22 @@ const Navbar = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [mounted]);
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
+    
+    if (typeof window === 'undefined') return;
+    
     const targetElement = document.querySelector(targetId);
     if (targetElement) {
-      // Use our custom smoothScroll function if available
-      if (typeof window !== 'undefined' && 'smoothScroll' in window) {
-        // @ts-ignore
-        window.smoothScroll(targetId, 800);
-      } else {
-        // Fallback if our custom function isn't available
-        const navbarHeight = document.querySelector('nav')?.offsetHeight || 0;
-        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navbarHeight;
-        window.scrollTo({
-          top: targetPosition,
-          behavior: 'smooth'
-        });
-      }
+      // Fallback scroll behavior
+      const navbarHeight = document.querySelector('nav')?.offsetHeight || 0;
+      const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navbarHeight;
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -85,6 +90,11 @@ const Navbar = () => {
     closed: { opacity: 0, y: -10 },
     open: { opacity: 1, y: 0 }
   };
+
+  // Only render complete component after mounting
+  if (!mounted) {
+    return <nav className="fixed w-full z-50 py-6"></nav>;
+  }
 
   return (
     <motion.nav 
@@ -182,22 +192,7 @@ const Navbar = () => {
                     e.preventDefault();
                     setMobileMenuOpen(false);
                     const targetId = `#${item.toLowerCase()}`;
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                      // Use our custom smoothScroll function if available
-                      if (typeof window !== 'undefined' && 'smoothScroll' in window) {
-                        // @ts-ignore
-                        window.smoothScroll(targetId, 800);
-                      } else {
-                        // Fallback if our custom function isn't available
-                        const navbarHeight = document.querySelector('nav')?.offsetHeight || 0;
-                        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navbarHeight;
-                        window.scrollTo({
-                          top: targetPosition,
-                          behavior: 'smooth'
-                        });
-                      }
-                    }
+                    handleSmoothScroll(e, targetId);
                   }}
                   className="text-white hover:text-netspire-pink py-2 px-2 text-lg font-medium transition-colors border-b border-netspire-gray/10 last:border-0"
                 >
@@ -210,20 +205,7 @@ const Navbar = () => {
                 onClick={(e) => {
                   e.preventDefault();
                   setMobileMenuOpen(false);
-                  if (typeof window !== 'undefined' && 'smoothScroll' in window) {
-                    // @ts-ignore
-                    window.smoothScroll("#book-now", 800);
-                  } else {
-                    const targetElement = document.querySelector("#book-now");
-                    if (targetElement) {
-                      const navbarHeight = document.querySelector('nav')?.offsetHeight || 0;
-                      const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navbarHeight;
-                      window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                      });
-                    }
-                  }
+                  handleSmoothScroll(e, "#book-now");
                 }}
                 className="btn-gradient px-6 py-3 rounded-full text-white font-medium text-base shadow-md text-center mt-2"
               >

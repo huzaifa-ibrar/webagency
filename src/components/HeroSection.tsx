@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import AnimatedText from './AnimatedText';
@@ -9,24 +10,27 @@ const HeroSection = () => {
     triggerOnce: true,
     threshold: 0.2,
   });
+  
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
+    
+    if (typeof window === 'undefined') return;
+    
     const targetElement = document.querySelector(targetId);
     if (targetElement) {
-      // Use our custom smoothScroll function if available
-      if (typeof window !== 'undefined' && 'smoothScroll' in window) {
-        // @ts-ignore
-        window.smoothScroll(targetId, 800);
-      } else {
-        // Fallback if our custom function isn't available
-        const navbarHeight = document.querySelector('nav')?.offsetHeight || 0;
-        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navbarHeight;
-        window.scrollTo({
-          top: targetPosition,
-          behavior: 'smooth'
-        });
-      }
+      // Fallback scroll behavior
+      const navbarHeight = document.querySelector('nav')?.offsetHeight || 0;
+      const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navbarHeight;
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 

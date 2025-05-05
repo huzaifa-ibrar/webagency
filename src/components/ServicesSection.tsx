@@ -96,11 +96,28 @@ const ServicesSection = () => {
   const [activeService, setActiveService] = useState<number | null>(null);
   const controls = useAnimation();
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   
   const [ref, inView] = useInView({
     triggerOnce: false,
     threshold: 0.1,
   });
+
+  // Handle mounting and check if desktop
+  useEffect(() => {
+    setIsMounted(true);
+    if (typeof window !== 'undefined') {
+      setIsDesktop(window.innerWidth >= 768);
+      
+      const handleResize = () => {
+        setIsDesktop(window.innerWidth >= 768);
+      };
+      
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
   useEffect(() => {
     if (inView) {
@@ -273,7 +290,7 @@ const ServicesSection = () => {
                   </button>
                   
                   <AnimatePresence>
-                    {(activeService === index || window?.innerWidth >= 768) && (
+                    {isMounted && (activeService === index || isDesktop) && (
                       <motion.div
                         variants={featureListVariants}
                         initial="hidden"

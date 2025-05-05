@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect, ElementType } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 interface AnimatedTextProps {
   text: string;
-  el?: keyof JSX.IntrinsicElements;
+  el?: ElementType;
   className?: string;
   once?: boolean;
   animation?: 'typewriter' | 'fadeIn' | 'slideUp' | 'staggered';
@@ -18,7 +18,7 @@ interface AnimatedTextProps {
 
 const AnimatedText = ({
   text,
-  el: Element = 'div',
+  el = 'div',
   className,
   once = true,
   animation = 'fadeIn',
@@ -44,12 +44,14 @@ const AnimatedText = ({
   // Split text into words
   const words = text.split(' ');
   
+  const Element = motion[el as keyof typeof motion] || motion.div;
+  
   if (animation === 'typewriter') {
     // Character-by-character animation
     const characters = text.split('');
     
     return (
-      <Element className={className} ref={ref}>
+      <div className={className} ref={ref}>
         <motion.span
           initial="hidden"
           animate={controls}
@@ -70,12 +72,12 @@ const AnimatedText = ({
             </motion.span>
           ))}
         </motion.span>
-      </Element>
+      </div>
     );
   } else if (animation === 'staggered') {
     // Word-by-word, then character-by-character animation
     return (
-      <Element className={className} ref={ref}>
+      <div className={className} ref={ref}>
         <motion.span
           initial="hidden"
           animate={controls}
@@ -106,12 +108,12 @@ const AnimatedText = ({
             </motion.span>
           ))}
         </motion.span>
-      </Element>
+      </div>
     );
   } else if (animation === 'slideUp') {
     // Word-by-word slide up animation
     return (
-      <Element className={className} ref={ref}>
+      <div className={className} ref={ref}>
         <motion.span
           initial="hidden"
           animate={controls}
@@ -147,12 +149,12 @@ const AnimatedText = ({
             </motion.span>
           ))}
         </motion.span>
-      </Element>
+      </div>
     );
   } else {
     // Default fadeIn animation
     return (
-      <Element className={className} ref={ref}>
+      <div className={className} ref={ref}>
         <motion.span
           initial="hidden"
           animate={controls}
@@ -186,7 +188,7 @@ const AnimatedText = ({
             </motion.span>
           ))}
         </motion.span>
-      </Element>
+      </div>
     );
   }
 };

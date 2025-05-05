@@ -38,10 +38,28 @@ const TestimonialsSection = () => {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+  const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [autoplayEnabled, setAutoplayEnabled] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+    
+    return () => {
+      // Clean up timeouts on unmount
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+      if (resumeTimeoutRef.current) {
+        clearTimeout(resumeTimeoutRef.current);
+      }
+    };
+  }, []);
   
   // Auto-advance testimonials every 5 seconds
   useEffect(() => {
+    if (!isMounted) return; // Don't run in SSR
+    
     if (autoplayEnabled) {
       autoPlayRef.current = setInterval(() => {
         setDirection(1);
@@ -52,19 +70,25 @@ const TestimonialsSection = () => {
     return () => {
       if (autoPlayRef.current) {
         clearInterval(autoPlayRef.current);
+        autoPlayRef.current = null;
       }
     };
-  }, [autoplayEnabled]);
+  }, [autoplayEnabled, isMounted]);
 
   // Stop autoplay when interacting manually
   const pauseAutoplay = () => {
     setAutoplayEnabled(false);
     if (autoPlayRef.current) {
       clearInterval(autoPlayRef.current);
+      autoPlayRef.current = null;
     }
     
     // Resume autoplay after 10 seconds of inactivity
-    setTimeout(() => {
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current);
+    }
+    
+    resumeTimeoutRef.current = setTimeout(() => {
       setAutoplayEnabled(true);
     }, 10000);
   };
@@ -121,6 +145,10 @@ const TestimonialsSection = () => {
       transition: { duration: 0.2, delay: 0.05 }
     }
   };
+
+  if (!isMounted) {
+    return <section className="py-24 bg-netspire-black relative overflow-hidden"></section>;
+  }
 
   return (
     <section className="py-24 bg-netspire-black relative overflow-hidden">
