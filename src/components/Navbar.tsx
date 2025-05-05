@@ -117,8 +117,8 @@ const Navbar = () => {
             <Image 
               src="/images/logo.png" 
               alt="Netspire Logo" 
-              width={150} 
-              height={40} 
+              width={200} 
+              height={60} 
               className="h-auto"
               priority
             />
