@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -23,8 +24,13 @@ const Footer = () => {
               transition={{ duration: 0.5 }}
               className="mb-6"
             >
-              <span className="text-white text-3xl font-bold">Net</span>
-              <span className="text-netspire-pink text-3xl font-bold">spire</span>
+              <Image 
+                src="/images/logo.png" 
+                alt="Netspire Logo" 
+                width={150} 
+                height={40} 
+                className="h-auto" 
+              />
             </motion.div>
             <motion.p 
               initial={{ opacity: 0 }}

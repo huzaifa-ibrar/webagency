@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -112,8 +113,16 @@ const Navbar = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-2xl font-bold"
         >
-          <span className="text-white">Net</span>
-          <span className="text-netspire-pink">spire</span>
+          <a href="#home" className="flex items-center">
+            <Image 
+              src="/images/logo.png" 
+              alt="Netspire Logo" 
+              width={150} 
+              height={40} 
+              className="h-auto"
+              priority
+            />
+          </a>
         </motion.div>
         
         <div className="hidden md:flex space-x-8">
