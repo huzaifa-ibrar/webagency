@@ -5,6 +5,7 @@ import ServicesSection from '@/components/ServicesSection';
 import PortfolioSection from '@/components/PortfolioSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import CtaSection from '@/components/CtaSection';
+import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <PortfolioSection />
       <TestimonialsSection />
       <CtaSection />
+      <ContactSection />
       <Footer />
     </>
   );

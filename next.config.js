@@ -3,13 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    unoptimized: true,
-    domains: ['randomuser.me', 'source.unsplash.com'],
-  },
-  // Fix for favicon error
-  webpack(config) {
-    return config;
-  },
+    unoptimized: true
+  }
 }
 
 module.exports = nextConfig 

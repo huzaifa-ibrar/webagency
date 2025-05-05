@@ -29,8 +29,6 @@ const HeroSection = () => {
     }
   };
 
-  const calendlyUrl = "https://calendly.com/netspirestudios/30min?month=2025-05";
-
   return (
     <section ref={ref} id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background radial gradient */}
@@ -99,14 +97,14 @@ const HeroSection = () => {
           className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6"
         >
           <motion.a
-            href={calendlyUrl}
+            href="https://calendly.com/netspirestudios/30min"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="btn-gradient text-white px-10 py-4 rounded-full font-medium text-xl shadow-lg"
           >
-            Get Started
+            Book Now
           </motion.a>
           
           <motion.a
