@@ -57,7 +57,7 @@ const ContactSection = () => {
     {
       id: 'location',
       title: 'Our Location',
-      value: '123 Digital Avenue, Tech City',
+      value: 'Toronto, ON, Canada',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-netspire-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -79,8 +79,8 @@ const ContactSection = () => {
     {
       id: 'phone',
       title: 'Call Us',
-      value: '+1 (555) 123-4567',
-      link: 'tel:+15551234567',
+      value: '+1 (647) 572-4056',
+      link: 'tel:+16575724056',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-netspire-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -272,6 +272,7 @@ const ContactSection = () => {
           
           {/* Calendly Embed */}
           <motion.div 
+            id="book-now"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}

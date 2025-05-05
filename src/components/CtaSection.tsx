@@ -2,12 +2,26 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import AnimatedText from './AnimatedText';
 
 const CtaSection = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      const navbarHeight = document.querySelector('nav')?.offsetHeight || 0;
+      const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navbarHeight;
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   return (
     <section className="py-32 relative overflow-hidden">
@@ -70,15 +84,48 @@ const CtaSection = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="inline-block px-6 py-2 bg-netspire-pink bg-opacity-20 rounded-full text-netspire-pink font-medium text-sm tracking-wide uppercase mb-6"
             >
-              Let's Work Together
+              <AnimatedText 
+                text="Let's Work Together"
+                animation="typewriter"
+                staggerChildren={0.02}
+                startDelay={0.2}
+              />
             </motion.span>
             
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8">
-              Ready to <span className="text-gradient">Transform</span> Your Digital Presence?
+              <AnimatedText 
+                text="Ready to"
+                animation="staggered"
+                staggerChildren={0.03}
+                startDelay={0.4}
+                className="inline-block mr-3"
+              />
+              <AnimatedText 
+                text="Transform"
+                animation="staggered"
+                staggerChildren={0.03}
+                startDelay={0.7}
+                className="text-gradient inline-block mr-2"
+              />
+              <AnimatedText 
+                text="Your Digital Presence?"
+                animation="staggered"
+                staggerChildren={0.02}
+                startDelay={1.0}
+                className="inline-block"
+              />
             </h2>
-            <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
-              Let's collaborate to create exceptional digital experiences that elevate your brand and drive meaningful results.
-            </p>
+            
+            <div className="mb-12 max-w-3xl mx-auto">
+              <AnimatedText 
+                text="Let's collaborate to create exceptional digital experiences that elevate your brand and drive meaningful results."
+                animation="slideUp"
+                el="p"
+                className="text-xl md:text-2xl text-gray-300"
+                staggerChildren={0.01}
+                startDelay={1.3}
+              />
+            </div>
             
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -87,9 +134,8 @@ const CtaSection = () => {
               className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6"
             >
               <motion.a
-                href="https://calendly.com/netspirestudios/30min"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#book-now"
+                onClick={(e) => handleSmoothScroll(e, "#book-now")}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="btn-gradient inline-block text-white px-10 py-5 rounded-full font-medium text-xl shadow-lg"
@@ -99,6 +145,7 @@ const CtaSection = () => {
 
               <motion.a
                 href="#contact"
+                onClick={(e) => handleSmoothScroll(e, "#contact")}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center font-medium text-xl text-white hover:text-netspire-pink transition-colors"
@@ -108,6 +155,7 @@ const CtaSection = () => {
 
               <motion.a
                 href="#services"
+                onClick={(e) => handleSmoothScroll(e, "#services")}
                 whileHover={{ 
                   scale: 1.05,
                   color: "#FF1053"

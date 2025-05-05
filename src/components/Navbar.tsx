@@ -20,6 +20,26 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      // Use our custom smoothScroll function if available
+      if (typeof window !== 'undefined' && 'smoothScroll' in window) {
+        // @ts-ignore
+        window.smoothScroll(targetId, 800);
+      } else {
+        // Fallback if our custom function isn't available
+        const navbarHeight = document.querySelector('nav')?.offsetHeight || 0;
+        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navbarHeight;
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+  };
+
   const navbarVariants = {
     hidden: { opacity: 0, y: -20 },
     visible: { 
@@ -106,9 +126,8 @@ const Navbar = () => {
           ))}
           
           <motion.a
-            href="https://calendly.com/netspirestudios/30min"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#book-now"
+            onClick={(e) => handleSmoothScroll(e, "#book-now")}
             whileHover={{ scale: 1.05 }}
             initial={{ opacity: 0, y: -20 }}
             animate={{ 
@@ -186,10 +205,26 @@ const Navbar = () => {
                 </motion.a>
               ))}
               <motion.a
-                href="https://calendly.com/netspirestudios/30min"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#book-now"
                 variants={mobileItemVariants}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMobileMenuOpen(false);
+                  if (typeof window !== 'undefined' && 'smoothScroll' in window) {
+                    // @ts-ignore
+                    window.smoothScroll("#book-now", 800);
+                  } else {
+                    const targetElement = document.querySelector("#book-now");
+                    if (targetElement) {
+                      const navbarHeight = document.querySelector('nav')?.offsetHeight || 0;
+                      const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navbarHeight;
+                      window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                      });
+                    }
+                  }
+                }}
                 className="btn-gradient px-6 py-3 rounded-full text-white font-medium text-base shadow-md text-center mt-2"
               >
                 Book Now

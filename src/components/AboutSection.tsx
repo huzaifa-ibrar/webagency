@@ -111,7 +111,41 @@ const AboutSection = () => {
         </div>
 
         <div ref={ref} className="max-w-5xl mx-auto">
-          <div className="relative">
+          {/* Mobile timeline (visible on small screens) */}
+          <div className="md:hidden">
+            {timelineSteps.map((step, index) => (
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                className="relative pl-12 mb-12 pb-12 border-l-2 border-netspire-pink border-opacity-20"
+              >
+                {/* Icon */}
+                <div className="absolute left-[-20px] flex items-center justify-center w-10 h-10 rounded-full bg-netspire-gray border-4 border-netspire-black shadow-lg">
+                  <motion.div 
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
+                    viewport={{ once: true }}
+                    className="text-netspire-pink scale-75"
+                  >
+                    {step.icon}
+                  </motion.div>
+                </div>
+                
+                {/* Content */}
+                <div>
+                  <h3 className="text-xl font-bold mb-2">{step.title}</h3>
+                  <p className="text-gray-400 text-sm">{step.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Desktop timeline (hidden on small screens) */}
+          <div className="relative hidden md:block">
             {/* Timeline line */}
             <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-netspire-pink bg-opacity-20"></div>
 
