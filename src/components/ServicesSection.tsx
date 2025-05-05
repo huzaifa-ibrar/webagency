@@ -22,10 +22,9 @@ const services = [
       'API Integrations',
       'Full-stack Development'
     ],
-    gradient: 'from-netspire-pink/10 to-pink-600/5',
+    gradient: 'from-netspire-pink/30 to-pink-600/10',
     border: 'border-netspire-pink/30',
-    accent: 'bg-netspire-pink',
-    textShadow: 'text-shadow-md'
+    accent: 'bg-netspire-pink'
   },
   {
     icon: (
@@ -45,10 +44,9 @@ const services = [
       'Regular Backups',
       'Analytics & Reporting'
     ],
-    gradient: 'from-pink-500/10 to-netspire-pink/5',
+    gradient: 'from-pink-500/30 to-netspire-pink/10',
     border: 'border-pink-400/30',
-    accent: 'bg-pink-500',
-    textShadow: ''
+    accent: 'bg-pink-500'
   },
   {
     icon: (
@@ -67,10 +65,9 @@ const services = [
       'Design Systems',
       'Accessibility Compliance'
     ],
-    gradient: 'from-rose-500/10 to-netspire-pink/5',
+    gradient: 'from-rose-500/30 to-netspire-pink/10',
     border: 'border-rose-400/30',
-    accent: 'bg-rose-500',
-    textShadow: ''
+    accent: 'bg-rose-500'
   },
   {
     icon: (
@@ -89,10 +86,9 @@ const services = [
       'App Store Optimization',
       'Ongoing Support & Updates'
     ],
-    gradient: 'from-netspire-pink/10 to-rose-600/5',
+    gradient: 'from-netspire-pink/30 to-rose-600/10',
     border: 'border-netspire-pink/30',
-    accent: 'bg-netspire-pink',
-    textShadow: ''
+    accent: 'bg-netspire-pink'
   }
 ];
 
@@ -254,7 +250,7 @@ const ServicesSection = () => {
               <div className="absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-transparent via-white to-transparent opacity-20"></div>
               
               {/* 3D envelope effect */}
-              <div className={`h-full flex flex-col bg-netspire-black/80 backdrop-filter backdrop-blur-md border ${service.border} rounded-xl p-6 sm:p-8 md:p-10 shadow-xl transition-all duration-300`}>
+              <div className={`h-full flex flex-col bg-netspire-gray/20 backdrop-filter backdrop-blur-md border ${service.border} rounded-xl p-6 sm:p-8 md:p-10 shadow-xl transition-all duration-300`}>
                 {/* Card top accent */}
                 <div className={`absolute top-0 inset-x-0 h-1 ${service.accent} opacity-70`}></div>
                 
@@ -266,7 +262,7 @@ const ServicesSection = () => {
                   </div>
                 </div>
                 
-                <h3 className={`text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2 transition-colors duration-300 text-white hover-text-pink ${service.textShadow}`}>
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2 transition-colors duration-300 text-white hover-text-pink">
                   {service.title}
                 </h3>
                 
@@ -348,9 +344,6 @@ const ServicesSection = () => {
         }
         .learn-more-link:hover .arrow-icon {
           transform: translateX(8px);
-        }
-        .text-shadow-md {
-          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
         }
       `}</style>
     </section>
