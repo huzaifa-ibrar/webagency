@@ -91,6 +91,9 @@ const Navbar = () => {
     open: { opacity: 1, y: 0 }
   };
 
+  // Navigation items in correct order
+  const navItems = ['Home', 'About', 'Services', 'Portfolio', 'Contact'];
+
   // Only render complete component after mounting
   if (!mounted) {
     return <nav className="fixed w-full z-50 py-6"></nav>;
@@ -117,10 +120,11 @@ const Navbar = () => {
         </motion.div>
         
         <div className="hidden md:flex space-x-8">
-          {['Home', 'Services', 'Portfolio', 'About', 'Contact'].map((item, index) => (
+          {navItems.map((item, index) => (
             <motion.a
               key={item}
               href={`#${item.toLowerCase()}`}
+              onClick={(e) => handleSmoothScroll(e, `#${item.toLowerCase()}`)}
               variants={linkVariants}
               whileHover="hover"
               initial={{ opacity: 0, y: -20 }}
@@ -183,7 +187,7 @@ const Navbar = () => {
             className="md:hidden absolute top-full left-0 right-0 bg-black bg-opacity-95 backdrop-filter backdrop-blur-sm border-t border-netspire-gray/20 py-6 px-4 shadow-lg"
           >
             <div className="flex flex-col space-y-4">
-              {['Home', 'Services', 'Portfolio', 'About', 'Contact'].map((item) => (
+              {navItems.map((item) => (
                 <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
