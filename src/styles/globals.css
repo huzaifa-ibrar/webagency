@@ -19,6 +19,7 @@ body {
     )
     rgb(var(--background-start-rgb));
   font-family: 'Inter', sans-serif;
+  overflow-x: hidden; /* Prevent horizontal scrolling on mobile */
 }
 
 .text-gradient {
@@ -26,7 +27,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-fill-color: transparent;
+  color: transparent; /* Fallback */
 }
 
 .btn-gradient {
@@ -57,4 +58,59 @@ body {
 
 .floating {
   animation: float 6s ease-in-out infinite;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  h1, h2, h3, h4, h5, h6 {
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  
+  /* Better touch targets for mobile */
+  button, a, .btn-gradient {
+    min-height: 44px; /* Apple's recommended min size */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Prevent zoom on inputs on iOS */
+  input, select, textarea {
+    font-size: 16px;
+  }
+  
+  /* Improve mobile scrolling */
+  .scrollable {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  /* Fix for mobile viewports */
+  .container {
+    width: 100% !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  
+  /* Fix for iOS/Safari momentum scrolling */
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Improve accessibility for focus states */
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
+  outline: 2px solid rgba(255, 16, 83, 0.5);
+  outline-offset: 2px;
+}
+
+/* Hardware acceleration for smoother animations */
+.hw-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 } 

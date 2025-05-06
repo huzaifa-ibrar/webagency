@@ -4,23 +4,23 @@ import { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
-// Updated projects with standardized aspect ratios
+// Updated projects with standardized aspect ratios and theme-consistent colors
 const projects = [
   {
     title: "Elevate Finance",
     category: "Web Application",
     description: "Modern banking platform with intuitive dashboard and real-time analytics.",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    color: "#3b82f6",
+    color: "#FF1053", // Updated to match theme
     size: "large", // 2x2 size
-    aspectRatio: "aspect-[4/3]"
+    aspectRatio: "aspect-square" // Fixed aspect ratio
   },
   {
     title: "Quantum Studios",
     category: "Brand Identity",
     description: "Complete brand overhaul for a digital production company.",
     image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    color: "#8b5cf6",
+    color: "#FF4778", // Updated to match theme
     size: "small", // 1x1 size
     aspectRatio: "aspect-square"
   },
@@ -29,16 +29,16 @@ const projects = [
     category: "E-commerce",
     description: "Sustainable product marketplace with advanced filtering and checkout.",
     image: "https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    color: "#10b981",
+    color: "#FF1053", // Updated to match theme
     size: "medium", // 2x1 size
-    aspectRatio: "aspect-[2/1]"
+    aspectRatio: "aspect-video"
   },
   {
     title: "Pulse Fitness",
     category: "Mobile App",
     description: "Workout tracking app with social features and personalized routines.",
     image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    color: "#ef4444",
+    color: "#FF4778", // Updated to match theme
     size: "small", // 1x1 size
     aspectRatio: "aspect-square"
   },
@@ -47,16 +47,16 @@ const projects = [
     category: "Web Application",
     description: "Real estate platform with virtual tours and interactive property maps.",
     image: "https://images.unsplash.com/photo-1460317442991-0ec209397118?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    color: "#f59e0b",
+    color: "#FF1053", // Updated to match theme
     size: "medium", // 2x1 size
-    aspectRatio: "aspect-[2/1]"
+    aspectRatio: "aspect-video"
   },
   {
     title: "Culinary Cloud",
     category: "Mobile App",
     description: "Recipe discovery and meal planning app with ingredient recognition.",
     image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    color: "#6366f1",
+    color: "#FF4778", // Updated to match theme
     size: "small", // 1x1 size
     aspectRatio: "aspect-square"
   },
@@ -65,18 +65,18 @@ const projects = [
     category: "Virtual Reality",
     description: "Immersive VR experience for virtual real estate tours and architecture visualization.",
     image: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    color: "#8B5CF6",
+    color: "#FF1053", // Updated to match theme
     size: "rectangular", // 1x2 size (vertical rectangle)
-    aspectRatio: "aspect-[1/2]"
+    aspectRatio: "aspect-[3/4]"
   },
   {
     title: "Terra Analytics",
     category: "Data Dashboard",
     description: "Environmental monitoring platform with real-time data visualization and reporting.",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    color: "#10B981",
+    color: "#FF4778", // Updated to match theme
     size: "large", // 2x2 size
-    aspectRatio: "aspect-[4/3]"
+    aspectRatio: "aspect-square" // Fixed aspect ratio
   }
 ];
 
@@ -98,20 +98,20 @@ const PortfolioSection = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.1
       }
     }
   };
 
   const itemVariants = {
-    hidden: { y: 50, opacity: 0 },
+    hidden: { y: 20, opacity: 0 },
     visible: (custom: { row: number, col: number }) => ({
       y: 0,
       opacity: 1,
       transition: { 
-        duration: 0.7,
+        duration: 0.5,
         ease: [0.25, 0.1, 0.25, 1.0],
-        delay: (custom.row * 0.3) + (custom.col * 0.15) // Stagger based on position
+        delay: (custom.row * 0.1) + (custom.col * 0.05) // Faster stagger for better UX
       }
     })
   };
@@ -128,14 +128,14 @@ const PortfolioSection = () => {
   const getGridClass = (size: string) => {
     switch (size) {
       case "large":
-        return "col-span-2 row-span-2"; // 2x2
+        return "col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6 xl:col-span-6"; // More responsive approach
       case "medium":
-        return "col-span-2 row-span-1"; // 2x1 horizontal rectangle
+        return "col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6 xl:col-span-6"; // Consistent sizing
       case "rectangular":
-        return "col-span-1 row-span-2"; // 1x2 vertical rectangle
+        return "col-span-12 sm:col-span-6 md:col-span-3 lg:col-span-3 xl:col-span-3"; // Better for mobile
       case "small":
       default:
-        return "col-span-1 row-span-1"; // 1x1 square
+        return "col-span-12 sm:col-span-6 md:col-span-3 lg:col-span-3 xl:col-span-3"; // Better for mobile
     }
   };
 
@@ -172,12 +172,13 @@ const PortfolioSection = () => {
           </motion.p>
         </div>
 
+        {/* Improved responsive grid layout with consistent spacing */}
         <motion.div 
           ref={ref}
           variants={containerVariants}
           initial="hidden"
           animate={controls}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 auto-rows-auto"
+          className="grid grid-cols-12 gap-4 sm:gap-6"
         >
           {projects.map((project, index) => (
             <motion.div
@@ -188,10 +189,10 @@ const PortfolioSection = () => {
                 scale: 1.02,
                 transition: { duration: 0.3, ease: "easeOut" }
               }}
-              className={`${getGridClass(project.size)} relative group overflow-hidden rounded-xl h-full`}
+              className={`${getGridClass(project.size)} relative group overflow-hidden rounded-xl h-full min-h-[250px] sm:min-h-[200px]`}
             >
               {/* Project image with proper aspect ratio */}
-              <div className={`absolute inset-0 z-0 ${project.aspectRatio}`}>
+              <div className={`absolute inset-0 z-0 ${project.aspectRatio} w-full h-full`}>
                 <div 
                   className="h-full w-full transition-transform duration-700 ease-in-out bg-cover bg-center bg-no-repeat group-hover:scale-110"
                   style={{ backgroundImage: `url(${project.image})` }}
@@ -199,8 +200,8 @@ const PortfolioSection = () => {
               </div>
               
               {/* Image content container - maintains consistent layout */}
-              <div className={`relative w-full h-full ${project.aspectRatio} flex items-end`}>
-                {/* Gradient overlay for better text readability */}
+              <div className={`relative w-full h-full flex items-end`}>
+                {/* Gradient overlay for better text readability - using theme colors */}
                 <div 
                   className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300 z-10"
                   style={{ background: `linear-gradient(to top, black, ${project.color}10, transparent)` }}
@@ -210,7 +211,7 @@ const PortfolioSection = () => {
                 <div 
                   className="absolute inset-0 z-20 p-4 md:p-6 flex flex-col justify-end transform transition-transform duration-500"
                 >
-                  {/* Accent line on side */}
+                  {/* Accent line on side using brand colors */}
                   <div 
                     className="absolute top-6 bottom-6 left-0 w-1 opacity-70 group-hover:opacity-100 transition-all duration-300 group-hover:h-full group-hover:top-0 group-hover:bottom-0"
                     style={{ backgroundColor: project.color }}
@@ -249,16 +250,23 @@ const PortfolioSection = () => {
           ))}
         </motion.div>
         
-        <div className="text-center mt-20">
+        {/* View All Projects button */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          viewport={{ once: true }}
+          className="mt-14 text-center"
+        >
           <motion.a
-            href="#contact"
-            whileHover={{ scale: 1.05, boxShadow: '0 10px 25px -5px rgba(255, 16, 83, 0.5)' }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-block btn-gradient text-white px-10 py-4 rounded-full font-medium text-lg shadow-lg"
+            href="#all-projects"
+            whileHover={{ scale: 1.05, y: -3 }}
+            transition={{ duration: 0.3 }}
+            className="inline-block btn-gradient px-8 py-3 rounded-full text-white font-medium shadow-md"
           >
-            Start Your Project
+            View All Projects
           </motion.a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
