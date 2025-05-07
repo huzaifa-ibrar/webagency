@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
@@ -27,7 +28,6 @@ export default function Home() {
       <AnimatePresence mode="wait">
         {loading && <Preloader onLoadingComplete={handleLoadingComplete} />}
       </AnimatePresence>
-      
       {/* Main content */}
       <div style={{ opacity: loading ? 0 : 1 }} className="transition-opacity duration-500">
         <Navbar />
