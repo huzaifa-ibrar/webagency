@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
@@ -8,6 +8,8 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const lastScrollY = useRef(0);
 
   // Handle mounting state to avoid window references during SSR
   useEffect(() => {
@@ -18,29 +20,26 @@ const Navbar = () => {
     if (!mounted) return;
 
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > 50) {
         setScrolled(true);
       } else {
         setScrolled(false);
       }
+      // Show/hide navbar based on scroll direction
+      if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
+        // Scrolling down
+        setShowNavbar(false);
+      } else {
+        // Scrolling up
+        setShowNavbar(true);
+      }
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [mounted]);
-
-  useEffect(() => {
-    // Prevent body scroll when mobile menu is open
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [mobileMenuOpen]);
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
@@ -83,7 +82,6 @@ const Navbar = () => {
     closed: { 
       opacity: 0,
       y: -20,
-      height: 0,
       transition: {
         duration: 0.3,
         ease: 'easeInOut'
@@ -92,9 +90,8 @@ const Navbar = () => {
     open: { 
       opacity: 1,
       y: 0,
-      height: 'auto',
       transition: {
-        duration: 0.4,
+        duration: 0.3,
         ease: 'easeInOut',
         staggerChildren: 0.1,
         delayChildren: 0.2
@@ -107,20 +104,6 @@ const Navbar = () => {
     open: { opacity: 1, y: 0 }
   };
 
-  // Hamburger menu button variants
-  const lineVariants = {
-    closed: { rotate: 0, y: 0 },
-    open: (custom: number) => ({
-      rotate: custom === 1 ? 45 : custom === 3 ? -45 : 0,
-      y: custom === 1 ? 8 : custom === 3 ? -8 : 0,
-      opacity: custom === 2 ? 0 : 1,
-      transition: {
-        duration: 0.4,
-        ease: [0.6, 0.05, 0.01, 0.9]
-      }
-    })
-  };
-
   // Only render complete component after mounting
   if (!mounted) {
     return <nav className="fixed w-full z-50 py-6"></nav>;
@@ -128,11 +111,14 @@ const Navbar = () => {
 
   return (
     <motion.nav 
-      initial="hidden"
-      animate="visible"
-      variants={navbarVariants}
+      initial="visible"
+      animate={showNavbar ? "visible" : "hidden"}
+      variants={{
+        visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+        hidden: { opacity: 0, y: -40, transition: { duration: 0.3 } },
+      }}
       className={`fixed w-full z-50 transition-all duration-300 ease-in-out ${
-        scrolled ? 'py-2 bg-black bg-opacity-90 shadow-lg backdrop-blur-sm' : 'py-4 sm:py-6'
+        scrolled ? 'py-3 bg-black bg-opacity-90 shadow-lg' : 'py-6'
       }`}
     >
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
@@ -143,14 +129,28 @@ const Navbar = () => {
           className="text-2xl font-bold"
         >
           <a href="#home" className="flex items-center">
-            <Image 
-              src="/images/logo.png" 
-              alt="Netspire Logo" 
-              width={160} 
-              height={50} 
-              className="h-auto w-auto max-w-[120px] sm:max-w-[160px]"
-              priority
-            />
+            {/* Desktop logo */}
+            <span className="hidden sm:inline">
+              <Image 
+                src="/images/logo.png" 
+                alt="Netspire Logo" 
+                width={150} 
+                height={40} 
+                className="h-auto"
+                priority
+              />
+            </span>
+            {/* Mobile logo */}
+            <span className="inline sm:hidden">
+              <Image 
+                src="/images/mobilelogo.png" 
+                alt="Netspire Mobile Logo" 
+                width={40} 
+                height={40} 
+                className="h-auto"
+                priority
+              />
+            </span>
           </a>
         </motion.div>
         
@@ -189,33 +189,28 @@ const Navbar = () => {
           </motion.a>
         </div>
         
-        {/* Improved hamburger menu button */}
         <motion.button
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.8 }}
           whileHover={{ scale: 1.05 }}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden w-10 h-10 flex flex-col justify-center items-center rounded-full border border-white/10 bg-black/40 backdrop-blur-sm"
-          aria-label="Menu"
+          className="md:hidden text-white"
         >
-          <div className="w-6 h-6 flex flex-col justify-center items-center relative">
-            {[1, 2, 3].map((line) => (
-              <motion.span
-                key={line}
-                custom={line}
-                variants={lineVariants}
-                animate={mobileMenuOpen ? "open" : "closed"}
-                className={`w-6 h-0.5 bg-white block rounded-full absolute transform origin-center ${
-                  line === 1 ? '-translate-y-2' : line === 3 ? 'translate-y-2' : ''
-                }`}
-              />
-            ))}
-          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d={mobileMenuOpen 
+                ? "M6 18L18 6M6 6l12 12" 
+                : "M4 6h16M4 12h16m-7 6h7"} 
+            />
+          </svg>
         </motion.button>
       </div>
 
-      {/* Improved Mobile Menu */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -223,7 +218,7 @@ const Navbar = () => {
             animate="open"
             exit="closed"
             variants={mobileMenuVariants}
-            className="md:hidden fixed inset-x-0 top-[60px] bg-black bg-opacity-95 backdrop-filter backdrop-blur-md border-t border-netspire-gray/20 py-6 px-4 shadow-lg max-h-[calc(100vh-60px)] overflow-y-auto"
+            className="md:hidden absolute top-full left-0 right-0 bg-black bg-opacity-95 backdrop-filter backdrop-blur-sm border-t border-netspire-gray/20 py-6 px-4 shadow-lg"
           >
             <div className="flex flex-col space-y-4">
               {['Home', 'Services', 'Portfolio', 'About', 'Contact'].map((item) => (
@@ -237,7 +232,7 @@ const Navbar = () => {
                     const targetId = `#${item.toLowerCase()}`;
                     handleSmoothScroll(e, targetId);
                   }}
-                  className="text-white hover:text-netspire-pink py-3 px-2 text-lg font-medium transition-colors border-b border-netspire-gray/10 last:border-0"
+                  className="text-white hover:text-netspire-pink py-2 px-2 text-lg font-medium transition-colors border-b border-netspire-gray/10 last:border-0"
                 >
                   {item}
                 </motion.a>

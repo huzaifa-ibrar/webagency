@@ -209,7 +209,7 @@ const ServicesSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8"
+            className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-8"
           >
             Our <span className="text-gradient">Services</span>
           </motion.h2>
@@ -218,7 +218,7 @@ const ServicesSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto"
+            className="text-base sm:text-xl md:text-2xl text-gray-300 max-w-xl mx-auto"
           >
             We deliver comprehensive digital solutions tailored to your specific needs,
             helping your business thrive in the digital landscape.
@@ -230,7 +230,7 @@ const ServicesSection = () => {
           variants={containerVariants}
           initial="hidden"
           animate={controls}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10 md:gap-12 lg:gap-16"
         >
           {services.map((service, index) => (
             <motion.div
@@ -240,7 +240,7 @@ const ServicesSection = () => {
               ref={(el) => { cardRefs.current[index] = el; }}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={() => handleMouseLeave(index)}
-              className={`relative backdrop-filter backdrop-blur-md rounded-xl overflow-hidden transform-gpu min-h-[auto] cursor-pointer transition-all duration-300 ease-out hover:-translate-y-2 service-card`}
+              className={`relative backdrop-filter backdrop-blur-md rounded-xl overflow-hidden transform-gpu min-h-[auto] cursor-pointer transition-all duration-300 ease-out hover:-translate-y-2 service-card p-4 sm:p-8 md:p-10`}
               onClick={(e) => toggleService(index, e)}
             >
               {/* Card background with gradient */}
@@ -262,20 +262,20 @@ const ServicesSection = () => {
                   </div>
                 </div>
                 
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2 transition-colors duration-300 text-white hover-text-pink">
+                <h3 className="text-lg sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2 transition-colors duration-300 text-white hover-text-pink">
                   {service.title}
                 </h3>
                 
-                <h4 className="text-base sm:text-lg text-gray-300 mb-3 sm:mb-4">{service.subtitle}</h4>
+                <h4 className="text-sm sm:text-lg text-gray-300 mb-2 sm:mb-4">{service.subtitle}</h4>
                 
-                <p className="text-gray-300 mb-6 text-sm sm:text-base md:text-lg">
+                <p className="text-gray-300 mb-4 text-xs sm:text-base md:text-lg">
                   {service.description}
                 </p>
                 
                 <div className="mt-auto">
                   <button 
                     onClick={(e) => toggleService(index, e)}
-                    className="flex items-center justify-between w-full text-netspire-pink font-semibold mb-4"
+                    className="flex items-center justify-between w-full text-netspire-pink font-semibold mb-2 sm:mb-4 text-sm sm:text-base"
                   >
                     <span>What we offer:</span>
                     <svg 
@@ -296,7 +296,7 @@ const ServicesSection = () => {
                         initial="hidden"
                         animate="visible"
                         exit="hidden"
-                        className="grid grid-cols-1 gap-y-2 sm:gap-y-3"
+                        className="grid grid-cols-1 gap-y-1 sm:gap-y-3"
                       >
                         {service.features.map((feature, i) => (
                           <motion.div 
@@ -307,8 +307,8 @@ const ServicesSection = () => {
                             custom={i}
                             className="flex items-center"
                           >
-                            <div className={`w-1.5 h-1.5 rounded-full ${service.accent} mr-3`}></div>
-                            <span className="text-sm sm:text-base text-gray-200">{feature}</span>
+                            <div className={`w-1.5 h-1.5 rounded-full ${service.accent} mr-2 sm:mr-3`}></div>
+                            <span className="text-xs sm:text-base text-gray-200">{feature}</span>
                           </motion.div>
                         ))}
                       </motion.div>

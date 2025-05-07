@@ -93,7 +93,7 @@ const AboutSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold mb-6"
+            className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 sm:mb-6"
           >
             About <span className="text-gradient">Us</span>
           </motion.h2>
@@ -103,7 +103,7 @@ const AboutSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
-            className="text-xl text-gray-300 max-w-3xl mx-auto mb-12"
+            className="text-base sm:text-xl text-gray-300 max-w-xl mx-auto mb-8 sm:mb-12"
           >
             We are a team of passionate digital experts dedicated to transforming businesses 
             through innovative web solutions. Our process-driven approach ensures exceptional results.
@@ -120,10 +120,10 @@ const AboutSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true, margin: "-50px" }}
-                className="relative pl-12 mb-12 pb-12 border-l-2 border-netspire-pink border-opacity-20"
+                className="relative pl-8 mb-8 pb-8 border-l-2 border-netspire-pink border-opacity-20"
               >
                 {/* Icon */}
-                <div className="absolute left-[-20px] flex items-center justify-center w-10 h-10 rounded-full bg-netspire-gray border-4 border-netspire-black shadow-lg">
+                <div className="absolute left-[-18px] flex items-center justify-center w-8 h-8 rounded-full bg-netspire-gray border-4 border-netspire-black shadow-lg">
                   <motion.div 
                     initial={{ scale: 0.8, opacity: 0 }}
                     whileInView={{ scale: 1, opacity: 1 }}
@@ -137,8 +137,8 @@ const AboutSection = () => {
                 
                 {/* Content */}
                 <div>
-                  <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                  <p className="text-gray-400 text-sm">{step.description}</p>
+                  <h3 className="text-lg font-bold mb-1">{step.title}</h3>
+                  <p className="text-gray-400 text-xs">{step.description}</p>
                 </div>
               </motion.div>
             ))}

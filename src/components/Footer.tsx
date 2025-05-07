@@ -27,8 +27,8 @@ const Footer = () => {
               <Image 
                 src="/images/logo.png" 
                 alt="Netspire Logo" 
-                width={200} 
-                height={60} 
+                width={150} 
+                height={40} 
                 className="h-auto" 
               />
             </motion.div>
