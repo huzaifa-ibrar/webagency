@@ -98,6 +98,7 @@ const ServicesSection = () => {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [isMounted, setIsMounted] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [openServices, setOpenServices] = useState<boolean[]>(Array(services.length).fill(false));
   
   const [ref, inView] = useInView({
     triggerOnce: false,
@@ -173,25 +174,21 @@ const ServicesSection = () => {
     }
   };
 
-  // Toggle service and fix hover state bugs
   const toggleService = (index: number, e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent bubbling
-    setActiveService(activeService === index ? null : index);
+    e.stopPropagation();
+    setOpenServices(prev => {
+      const updated = [...prev];
+      updated[index] = !updated[index];
+      return updated;
+    });
   };
 
-  // Repair hover bug by using CSS-only transitions for simple animations
   const handleMouseEnter = (index: number) => {
-    const card = cardRefs.current[index];
-    if (card) {
-      card.classList.add('hover-state');
-    }
+    // No hover logic for dropdown
   };
 
   const handleMouseLeave = (index: number) => {
-    const card = cardRefs.current[index];
-    if (card) {
-      card.classList.remove('hover-state');
-    }
+    // No hover logic for dropdown
   };
 
   return (
@@ -238,10 +235,8 @@ const ServicesSection = () => {
               custom={index}
               variants={cardVariants}
               ref={(el) => { cardRefs.current[index] = el; }}
-              onMouseEnter={() => handleMouseEnter(index)}
-              onMouseLeave={() => handleMouseLeave(index)}
               className={`relative backdrop-filter backdrop-blur-md rounded-xl overflow-hidden transform-gpu min-h-[auto] cursor-pointer transition-all duration-300 ease-out hover:-translate-y-2 service-card p-4 sm:p-8 md:p-10`}
-              onClick={(e) => toggleService(index, e)}
+              onClick={(e) => !isDesktop && toggleService(index, e)}
             >
               {/* Card background with gradient */}
               <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-20`}></div>
@@ -274,13 +269,14 @@ const ServicesSection = () => {
                 
                 <div className="mt-auto">
                   <button 
-                    onClick={(e) => toggleService(index, e)}
+                    onClick={(e) => !isDesktop && toggleService(index, e)}
                     className="flex items-center justify-between w-full text-netspire-pink font-semibold mb-2 sm:mb-4 text-sm sm:text-base"
+                    type="button"
                   >
                     <span>What we offer:</span>
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" 
-                      className={`h-5 w-5 transition-transform duration-300 ${activeService === index ? 'rotate-180' : ''}`} 
+                      className={`h-5 w-5 transition-transform duration-300 ${!isDesktop && openServices[index] ? 'rotate-180' : ''}`} 
                       fill="none" 
                       viewBox="0 0 24 24" 
                       stroke="currentColor"
@@ -290,28 +286,54 @@ const ServicesSection = () => {
                   </button>
                   
                   <AnimatePresence>
-                    {isMounted && (activeService === index || isDesktop) && (
-                      <motion.div
-                        variants={featureListVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="hidden"
-                        className="grid grid-cols-1 gap-y-1 sm:gap-y-3"
-                      >
-                        {service.features.map((feature, i) => (
-                          <motion.div 
-                            key={i}
-                            variants={featureVariants}
+                    {isMounted && (
+                      isDesktop ? (
+                        <motion.div
+                          variants={featureListVariants}
+                          initial="visible"
+                          animate="visible"
+                          exit="visible"
+                          className="grid grid-cols-1 gap-y-1 sm:gap-y-3"
+                        >
+                          {service.features.map((feature, i) => (
+                            <motion.div 
+                              key={i}
+                              variants={featureVariants}
+                              initial="visible"
+                              animate="visible"
+                              custom={i}
+                              className="flex items-center"
+                            >
+                              <div className={`w-1.5 h-1.5 rounded-full ${service.accent} mr-2 sm:mr-3`}></div>
+                              <span className="text-xs sm:text-base text-gray-200">{feature}</span>
+                            </motion.div>
+                          ))}
+                        </motion.div>
+                      ) : (
+                        openServices[index] && (
+                          <motion.div
+                            variants={featureListVariants}
                             initial="hidden"
                             animate="visible"
-                            custom={i}
-                            className="flex items-center"
+                            exit="hidden"
+                            className="grid grid-cols-1 gap-y-1 sm:gap-y-3"
                           >
-                            <div className={`w-1.5 h-1.5 rounded-full ${service.accent} mr-2 sm:mr-3`}></div>
-                            <span className="text-xs sm:text-base text-gray-200">{feature}</span>
+                            {service.features.map((feature, i) => (
+                              <motion.div 
+                                key={i}
+                                variants={featureVariants}
+                                initial="hidden"
+                                animate="visible"
+                                custom={i}
+                                className="flex items-center"
+                              >
+                                <div className={`w-1.5 h-1.5 rounded-full ${service.accent} mr-2 sm:mr-3`}></div>
+                                <span className="text-xs sm:text-base text-gray-200">{feature}</span>
+                              </motion.div>
+                            ))}
                           </motion.div>
-                        ))}
-                      </motion.div>
+                        )
+                      )
                     )}
                   </AnimatePresence>
                   

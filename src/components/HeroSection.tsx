@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import AnimatedText from './AnimatedText';
+import Image from 'next/image';
 
 const HeroSection = () => {
   const [ref, inView] = useInView({
@@ -149,6 +150,10 @@ const HeroSection = () => {
         animate={inView ? "visible" : "hidden"}
         className="container mx-auto px-6 text-center relative z-10"
       >
+        {/* Mobile-only centered logo */}
+        <div className="flex justify-center mb-6 md:hidden">
+          <Image src="/images/logo.png" alt="Netspire Logo" width={180} height={60} className="h-auto" priority />
+        </div>
         <motion.div 
           variants={itemVariants}
           className="inline-block mb-4 px-6 py-2 border border-netspire-pink rounded-full text-sm md:text-base tracking-wide text-netspire-pink"
@@ -174,7 +179,7 @@ const HeroSection = () => {
             animation="staggered" 
             staggerChildren={0.02} 
             startDelay={0.8}
-            className="text-gradient inline-block"
+            className="inline-block mr-3 bg-gradient-to-r from-[#FF1053] via-pink-400 to-red-400 bg-clip-text text-transparent"
           />
           <br />
           <AnimatedText 
@@ -189,7 +194,7 @@ const HeroSection = () => {
             animation="staggered" 
             staggerChildren={0.02} 
             startDelay={1.5}
-            className="text-gradient inline-block"
+            className="inline-block bg-gradient-to-r from-[#FF1053] via-pink-400 to-red-400 bg-clip-text text-transparent"
           />
         </div>
         

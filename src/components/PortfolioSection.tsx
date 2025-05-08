@@ -7,77 +7,57 @@ import { useInView } from 'react-intersection-observer';
 // Updated projects with standardized aspect ratios
 const projects = [
   {
-    title: "Elevate Finance",
-    category: "Web Application",
-    description: "Modern banking platform with intuitive dashboard and real-time analytics.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    color: "#3b82f6",
-    size: "large", // 2x2 size
-    aspectRatio: "aspect-[4/3]"
-  },
-  {
-    title: "Quantum Studios",
-    category: "Brand Identity",
-    description: "Complete brand overhaul for a digital production company.",
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    color: "#8b5cf6",
-    size: "small", // 1x1 size
-    aspectRatio: "aspect-square"
-  },
-  {
     title: "EcoHarvest",
     category: "E-commerce",
     description: "Sustainable product marketplace with advanced filtering and checkout.",
-    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    color: "#10b981",
-    size: "medium", // 2x1 size
-    aspectRatio: "aspect-[2/1]"
+    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    color: "#FF1053",
+    url: "https://www.eco-harvest.com/",
+    stats: {
+      performance: 55,
+      traffic: 38,
+      time: "3m 20s"
+    }
   },
   {
     title: "Pulse Fitness",
-    category: "Mobile App",
+    category: "Fitness Solutions",
     description: "Workout tracking app with social features and personalized routines.",
     image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    color: "#ef4444",
-    size: "small", // 1x1 size
-    aspectRatio: "aspect-square"
+    color: "#FF1053",
+    url: "https://pulsefitness.com/",
+    stats: {
+      performance: 42,
+      traffic: 27,
+      time: "2m 45s"
+    }
   },
   {
-    title: "Skyline Properties",
-    category: "Web Application",
-    description: "Real estate platform with virtual tours and interactive property maps.",
-    image: "https://images.unsplash.com/photo-1460317442991-0ec209397118?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    color: "#f59e0b",
-    size: "medium", // 2x1 size
-    aspectRatio: "aspect-[2/1]"
+    title: "Quantum Studios",
+    category: "Enterprise Tech",
+    description: "Custom software, cloud integration, and digital strategies for industry leaders.",
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    color: "#FF1053",
+    url: "https://www.quantumstudios.dev/",
+    stats: {
+      performance: 61,
+      traffic: 44,
+      time: "4m 10s"
+    }
   },
   {
-    title: "Culinary Cloud",
-    category: "Mobile App",
-    description: "Recipe discovery and meal planning app with ingredient recognition.",
-    image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    color: "#6366f1",
-    size: "small", // 1x1 size
-    aspectRatio: "aspect-square"
+    title: "Elevate Finance",
+    category: "Finance Platform",
+    description: "Empowering exporters with international financing and risk management solutions.",
+    image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    color: "#FF1053",
+    url: "https://www.elevatefinance.ca/",
+    stats: {
+      performance: 48,
+      traffic: 32,
+      time: "2m 58s"
+    }
   },
-  {
-    title: "NexusVR",
-    category: "Virtual Reality",
-    description: "Immersive VR experience for virtual real estate tours and architecture visualization.",
-    image: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    color: "#8B5CF6",
-    size: "rectangular", // 1x2 size (vertical rectangle)
-    aspectRatio: "aspect-[1/2]"
-  },
-  {
-    title: "Terra Analytics",
-    category: "Data Dashboard",
-    description: "Environmental monitoring platform with real-time data visualization and reporting.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    color: "#10B981",
-    size: "large", // 2x2 size
-    aspectRatio: "aspect-[4/3]"
-  }
 ];
 
 const PortfolioSection = () => {
@@ -105,13 +85,13 @@ const PortfolioSection = () => {
 
   const itemVariants = {
     hidden: { y: 50, opacity: 0 },
-    visible: (custom: { row: number, col: number }) => ({
+    visible: (index: number) => ({
       y: 0,
       opacity: 1,
       transition: { 
         duration: 0.7,
         ease: [0.25, 0.1, 0.25, 1.0],
-        delay: (custom.row * 0.3) + (custom.col * 0.15) // Stagger based on position
+        delay: index * 0.15 // Stagger based on index
       }
     })
   };
@@ -177,84 +157,51 @@ const PortfolioSection = () => {
           variants={containerVariants}
           initial="hidden"
           animate={controls}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 auto-rows-auto"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
         >
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              custom={getGridPosition(index)}
+              custom={index}
               variants={itemVariants}
               whileHover={{ 
-                scale: 1.02,
-                transition: { duration: 0.3, ease: "easeOut" }
+                scale: 1.03,
+                boxShadow: '0 8px 32px -8px #FF105355',
+                transition: { duration: 0.3, ease: 'easeOut' }
               }}
-              className={`relative group overflow-hidden rounded-xl h-full
-                w-full
-                ${getGridClass(project.size)}
-                sm:${getGridClass(project.size)}
-                md:${getGridClass(project.size)}
-                ${project.aspectRatio}
-                sm:${project.aspectRatio}
-                md:${project.aspectRatio}
-              `}
-              style={{
-                gridColumn: 'span 1',
-                gridRow: 'span 1',
-              }}
+              className="relative group rounded-xl overflow-hidden bg-netspire-black border border-pink-500/20 shadow-lg flex flex-col items-stretch aspect-square"
             >
-              {/* Project image with proper aspect ratio */}
-              <div className={`absolute inset-0 z-0 aspect-square sm:${project.aspectRatio} md:${project.aspectRatio}`}>
-                <div 
-                  className="h-full w-full transition-transform duration-700 ease-in-out bg-cover bg-center bg-no-repeat group-hover:scale-110"
-                  style={{ backgroundImage: `url(${project.image})` }}
+              {/* External link arrow */}
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute top-3 right-3 z-20 p-2 rounded-full bg-black/60 hover:bg-netspire-pink/80 transition-colors"
+                title={`Visit ${project.title}`}
+                tabIndex={0}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-netspire-pink group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 7l-10 10M17 7h-6m6 0v6" />
+                </svg>
+              </a>
+              {/* Project image */}
+              <div className="w-full h-2/3 flex-1 relative">
+                <img 
+                  src={project.image} 
+                  alt={project.title} 
+                  className="object-cover w-full h-full aspect-square"
                 />
+                {/* Pink overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-netspire-pink/40 to-transparent opacity-0 group-hover:opacity-80 transition-opacity duration-300"></div>
               </div>
-              
-              {/* Image content container - maintains consistent layout */}
-              <div className={`relative w-full h-full ${project.aspectRatio} flex items-end`}>
-                {/* Gradient overlay for better text readability */}
-                <div 
-                  className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300 z-10"
-                  style={{ background: `linear-gradient(to top, black, ${project.color}10, transparent)` }}
-                ></div>
-                
-                {/* Text overlay panel */}
-                <div 
-                  className="absolute inset-0 z-20 p-4 md:p-6 flex flex-col justify-end transform transition-transform duration-500"
-                >
-                  {/* Accent line on side */}
-                  <div 
-                    className="absolute top-6 bottom-6 left-0 w-1 opacity-70 group-hover:opacity-100 transition-all duration-300 group-hover:h-full group-hover:top-0 group-hover:bottom-0"
-                    style={{ backgroundColor: project.color }}
-                  ></div>
-                  
-                  {/* Semi-transparent panel for text */}
-                  <div className="bg-black/30 backdrop-blur-sm p-3 sm:p-4 md:p-5 rounded-lg border border-white/10 transform transition-all duration-500 group-hover:bg-black/50 group-hover:border-white/20">
-                    <div 
-                      className="inline-block py-1 px-2 text-xs font-medium tracking-wide text-white rounded-full mb-2 backdrop-blur-sm"
-                      style={{ backgroundColor: `${project.color}80` }}
-                    >
-                      {project.category}
-                    </div>
-                    
-                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-white group-hover:text-netspire-pink transition-colors duration-300">
-                      {project.title}
-                    </h3>
-                    
-                    <p className="text-gray-200 mt-1 text-xs sm:text-sm opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                      {project.description}
-                    </p>
-                    
-                    <motion.span 
-                      className="inline-flex items-center text-netspire-pink font-medium mt-2 text-sm opacity-0 transform -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 cursor-pointer"
-                      whileHover={{ x: 5 }}
-                    >
-                      View Project
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </motion.span>
-                  </div>
+              {/* Text content below image */}
+              <div className="flex flex-col items-center justify-center p-4 bg-black/70 w-full">
+                <h3 className="text-lg font-bold text-netspire-pink mb-1 text-center">{project.title}</h3>
+                <p className="text-xs text-gray-200 text-center mb-2">{project.description}</p>
+                <div className="flex flex-row gap-3 text-xs text-pink-400 justify-center">
+                  <span className="flex items-center gap-1"><svg className="w-3 h-3 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m4 0h-1v-4h-1" /></svg>+{project.stats.performance}% perf</span>
+                  <span className="flex items-center gap-1"><svg className="w-3 h-3 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>+{project.stats.traffic}% traffic</span>
+                  <span className="flex items-center gap-1"><svg className="w-3 h-3 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3" /></svg>{project.stats.time}</span>
                 </div>
               </div>
             </motion.div>

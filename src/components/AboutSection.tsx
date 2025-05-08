@@ -112,35 +112,42 @@ const AboutSection = () => {
 
         <div ref={ref} className="max-w-5xl mx-auto">
           {/* Mobile timeline (visible on small screens) */}
-          <div className="md:hidden">
+          <div className="md:hidden flex flex-col items-center relative">
             {timelineSteps.map((step, index) => (
-              <motion.div 
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                className="relative pl-8 mb-8 pb-8 border-l-2 border-netspire-pink border-opacity-20"
-              >
-                {/* Icon */}
-                <div className="absolute left-[-18px] flex items-center justify-center w-8 h-8 rounded-full bg-netspire-gray border-4 border-netspire-black shadow-lg">
-                  <motion.div 
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.4, delay: 0.2 }}
+              <div key={index} className="relative flex flex-col items-center w-full z-10">
+                {/* Icon without background */}
+                <motion.div
+                  initial={{ scale: 0.7, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.5 }}
+                  viewport={{ once: true }}
+                  className="mb-2"
+                >
+                  <span className="text-netspire-pink">{step.icon}</span>
+                </motion.div>
+                {/* Text below icon, larger and more compact */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.5 + 0.2 }}
+                  viewport={{ once: true }}
+                  className="text-center mb-12 px-2"
+                >
+                  <h3 className="text-2xl font-bold mb-2 text-netspire-pink leading-tight">{step.title}</h3>
+                  <p className="text-lg text-gray-200 leading-snug max-w-xs mx-auto font-medium" style={{ letterSpacing: '-0.01em' }}>{step.description}</p>
+                </motion.div>
+                {/* Animated very long solid pink line segments to next step (except last) */}
+                {index < timelineSteps.length - 1 && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    whileInView={{ height: 140, opacity: 1 }}
+                    transition={{ duration: 0.7, delay: index * 0.5 + 0.4 }}
                     viewport={{ once: true }}
-                    className="text-netspire-pink scale-75"
-                  >
-                    {step.icon}
-                  </motion.div>
-                </div>
-                
-                {/* Content */}
-                <div>
-                  <h3 className="text-lg font-bold mb-1">{step.title}</h3>
-                  <p className="text-gray-400 text-xs">{step.description}</p>
-                </div>
-              </motion.div>
+                    className="w-1 bg-netspire-pink mx-auto"
+                    style={{ minHeight: '100px', marginBottom: '48px' }}
+                  />
+                )}
+              </div>
             ))}
           </div>
 

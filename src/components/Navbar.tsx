@@ -140,17 +140,7 @@ const Navbar = () => {
                 priority
               />
             </span>
-            {/* Mobile logo */}
-            <span className="inline sm:hidden">
-              <Image 
-                src="/images/mobilelogo.png" 
-                alt="Netspire Mobile Logo" 
-                width={40} 
-                height={40} 
-                className="h-auto"
-                priority
-              />
-            </span>
+            {/* Mobile logo removed: no logo on mobile, only burger menu */}
           </a>
         </motion.div>
         

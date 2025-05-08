@@ -66,7 +66,7 @@ const AnimatedText = ({
                 delay: startDelay + i * staggerChildren,
                 duration: 0.2
               }}
-              style={{ display: 'inline-block', whiteSpace: char === ' ' ? 'pre' : 'normal' }}
+              style={{ display: 'inline-block', overflow: 'visible', lineHeight: 'inherit', whiteSpace: char === ' ' ? 'pre' : 'normal' }}
             >
               {char}
             </motion.span>
@@ -81,13 +81,13 @@ const AnimatedText = ({
         <motion.span
           initial="hidden"
           animate={controls}
-          style={{ display: 'inline-block' }}
+          style={{ display: 'inline-block', overflow: 'visible', lineHeight: 'inherit' }}
           aria-label={text}
         >
           {words.map((word, wordIndex) => (
             <motion.span
               key={`word-${wordIndex}`}
-              style={{ display: 'inline-block', whiteSpace: 'pre' }}
+              style={{ display: 'inline-block', overflow: 'visible', lineHeight: 'inherit', whiteSpace: 'pre' }}
             >
               {word.split('').map((char, charIndex) => (
                 <motion.span
@@ -99,7 +99,7 @@ const AnimatedText = ({
                     duration: 0.4,
                     ease: [0.215, 0.61, 0.355, 1]
                   }}
-                  style={{ display: 'inline-block' }}
+                  style={{ display: 'inline-block', overflow: 'visible', lineHeight: 'inherit' }}
                 >
                   {char}
                 </motion.span>
@@ -142,7 +142,7 @@ const AnimatedText = ({
                   }
                 }
               }}
-              style={{ display: 'inline-block', whiteSpace: 'pre' }}
+              style={{ display: 'inline-block', overflow: 'visible', lineHeight: 'inherit', whiteSpace: 'pre' }}
             >
               {word}
               {i !== words.length - 1 ? ' ' : ''}
@@ -181,7 +181,7 @@ const AnimatedText = ({
                   }
                 }
               }}
-              style={{ display: 'inline-block', whiteSpace: 'pre' }}
+              style={{ display: 'inline-block', overflow: 'visible', lineHeight: 'inherit', whiteSpace: 'pre' }}
             >
               {word}
               {i !== words.length - 1 ? ' ' : ''}
